@@ -1,0 +1,7 @@
+Clean_Data/
+UCF-101/
+Data/
+logs/
+__pycache__/
+Clean_Data.*
+.DS_Store
