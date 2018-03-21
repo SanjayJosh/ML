@@ -41,17 +41,17 @@ class Dataset():
         self.sampling_rate=rate
     def __init__(self,isinit=False,transfer="I"):
         if isinit == True:
-            self.trainfile,self.testfile=make_split(6,3,"00")
-            extract_images()
+            self.trainfile,self.testfile=make_split(75,25,"11")
+            extract_images(self.trainfile,self.testfile)
             pass
+
+        self.all_classes = getclasses()
+        self.class_num = len(self.all_classes)
+        self.class_dict = category_to_digit()
+        if transfer == "I":
+            self.feature_class = Inception_Features()
         else:
-            self.all_classes = getclasses()
-            self.class_num = len(self.all_classes)
-            self.class_dict = category_to_digit()
-            if transfer == "I":
-                self.feature_class = Inception_Features()
-            else:
-                self.feature_class = Resnet_Features()
+            self.feature_class = Resnet_Features()
 
     def make_path_lists(self):
         self.trainlist=list()
@@ -103,7 +103,7 @@ class Dataset():
             imagelist = sample_x_images(each_file[0],self.sampling_rate)
             sequence=self.build_sequence(imagelist)
             X.append(sequence)
-            y.append(to_categorical(filename[1],self.class_num))
+            y.append(to_categorical(each_file[1],self.class_num).squeeze())
         return np.array(X), np.array(y)
 
     def build_sequence(self,imagelist):
@@ -124,3 +124,4 @@ if __name__ == "__main__":
         myclass.load_all_in_memory(myclass.trainlist)
         print(myclass.all_classes)
         print(myclass.class_dict)
+

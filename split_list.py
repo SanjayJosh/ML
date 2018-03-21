@@ -71,3 +71,4 @@ if __name__ == "__main__":
         version = int(sys.argv[4]) if length>4 else "00"
         make_split(trainlength,testlength,version)
         #print(dir_name)
+

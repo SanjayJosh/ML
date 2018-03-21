@@ -54,7 +54,7 @@ def extract_one(row,split):
     subprocess.call(['ffmpeg','-i',videoname,os.path.join(dest_dir,'image-%04d.jpg')],stdout=FNULL, stderr=subprocess.STDOUT)
 
 
-def extract_images():
+def extract_images(trainfile,testfile):
     #print(os.path.isfile(testfile) and os.path.isfile(trainfile))
     init_directories()
     with open(trainfile,"r") as file:
@@ -97,3 +97,4 @@ if __name__ == "__main__":
         if not (os.path.isfile(testfile) and os.path.isfile(trainfile)) :
             make_split(6,3,"00")
         extract_images()
+
