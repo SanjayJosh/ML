@@ -6,5 +6,9 @@ __pycache__/
 Validation_Data/
 checkpoints/
 logsold/
+lstmodel.*
 Clean_Data.*
+checkpoints/
+Validation_Data/
+logsold/
 .DS_Store
