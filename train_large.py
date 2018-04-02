@@ -8,6 +8,7 @@ import tensorflow as tf
 from feature_extractor import graph
 def train():
     with graph.as_default():
+        mac_remove_file()
         starttime=time.time()
         datamodel = Dataset(True)
         datamodel.make_path_lists()
@@ -40,4 +41,3 @@ def train():
         # print(X.shape)
         # print(y.shape)
 train();
-
