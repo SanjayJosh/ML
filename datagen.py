@@ -1,6 +1,6 @@
 from create_images import extract_images, sample_x_images,destination_directory
 import sys
-from split_list import make_split,getclasses,category_to_digit,train_folder,test_folder
+from split_list import make_split,getclasses,category_to_digit,train_folder,test_folder,digit_to_category
 from feature_extractor import Inception_Features, Resnet_Features
 from keras.utils import to_categorical
 from utils import mac_remove_file
@@ -41,13 +41,13 @@ class Dataset():
         self.sampling_rate=rate
     def __init__(self,isinit=False,transfer="I"):
         if isinit == True:
-            self.trainfile,self.testfile=make_split(75,25,"11")
+            self.trainfile,self.testfile=make_split(6,3,"11")
             extract_images(self.trainfile,self.testfile)
-            pass
+
 
         self.all_classes = getclasses()
         self.class_num = len(self.all_classes)
-        self.class_dict = category_to_digit()
+        self.class_dict = digit_to_category()
         if transfer == "I":
             self.feature_class = Inception_Features()
         else:
@@ -117,11 +117,10 @@ if __name__ == "__main__":
     mac_remove_file()
     length = len(sys.argv)
     if length>2 and sys.argv[1] == "init":
-        myclass = Dataset(true)
+        myclass = Dataset(True)
     else:
         myclass = Dataset()
         myclass.make_path_lists()
         myclass.load_all_in_memory(myclass.trainlist)
         print(myclass.all_classes)
         print(myclass.class_dict)
-
