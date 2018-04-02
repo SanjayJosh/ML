@@ -3,5 +3,8 @@ UCF-101/
 Data/
 logs/
 __pycache__/
+Validation_Data/
+checkpoints/
+logsold/
 Clean_Data.*
 .DS_Store
