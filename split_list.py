@@ -4,6 +4,7 @@ import sys
 import random
 import csv
 import platform
+from utils import mac_remove_file
 dir_name="Data"
 train_folder="Train"
 test_folder="Test"
@@ -18,6 +19,12 @@ def category_to_digit():
     mystruct = dict()
     for i in range(len(all_classes)):
         mystruct[all_classes[i]] = i
+    return mystruct
+def digit_to_category():
+    all_classes=getclasses()
+    mystruct = dict()
+    for i in range(len(all_classes)):
+        mystruct[i] = all_classes[i]
     return mystruct
 def getclasses():
     all_classes=sorted(os.listdir(dir_name))
@@ -39,10 +46,18 @@ def make_split(trainlength,testlength,version) :
     for i in range(len(all_classes)):
         classname=all_classes[i]
         basepath=os.path.join(dir_name,classname)
-        all_videos=os.listdir(basepath)
-        num_vids=len(all_videos)
+        all_videos=sorted(os.listdir(basepath))
+        burst = list(map(lambda x: x.split('_'),all_videos))
+        x = dict()
+        for j in range(len(burst)):
+            if burst[j][2] in x.keys():
+                x[burst[j][2]].append(j)
+            else:
+                x[burst[j][2]]=[j]
+        num_vids= len(x.keys())
+        vids = random.sample(x.keys(),num_vids)
         k = int(num_vids*(trainlength+testlength)/100)
-        all_sample = random.sample(all_videos,k)
+        all_sample = random.sample(vids,k)
         train_end = int(num_vids*trainlength/100)
         train_videos=all_sample[:train_end]
         test_videos=all_sample[train_end:]
@@ -51,12 +66,14 @@ def make_split(trainlength,testlength,version) :
         with open(trainfile,"a+") as file:
             spamwriter=csv.writer(file)
             for vid in train_videos:
-                spamwriter.writerow([os.path.join(basepath,vid),i])
+                for index in x[vid]:
+                    spamwriter.writerow([os.path.join(basepath,all_videos[index]),i])
             file.close()
         with open(testfile,"a+") as file:
             spamwriter=csv.writer(file)
             for vid in test_videos:
-                spamwriter.writerow([os.path.join(basepath,vid),i])
+                for index in x[vid]:
+                    spamwriter.writerow([os.path.join(basepath,all_videos[index]),i])
             file.close()
         # print(all_videos)
         #print(all_sample)
@@ -68,7 +85,8 @@ if __name__ == "__main__":
     if length > 1 and sys.argv[1].lower() == "init":
         trainlength = int(sys.argv[2]) if length>2 else 80
         testlength = int(sys.argv[3]) if length>3 else 20
-        version = int(sys.argv[4]) if length>4 else "00"
+        version = sys.argv[4] if length>4 else "00"
+        mac_remove_file()
         make_split(trainlength,testlength,version)
         #print(dir_name)
 
