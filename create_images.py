@@ -41,9 +41,9 @@ def sample_x_images(dest_dir,sampling_rate):
     imgfiles=sorted(os.listdir(dest_dir))
     # print(imgfiles)
     length=len(imgfiles)
-    print(dest_dir,length)
+    #print(dest_dir,length)
     skip=length//sampling_rate
-
+    skip = skip if skip > 0 else 1
     my_indices = range(0,length,skip)[:sampling_rate]
     # print(dest_dir,len(range(0,length,skip)))
     return [os.path.join(dest_dir,imgfiles[i]) for i in my_indices]
