@@ -4,6 +4,7 @@ Data/
 logs/
 __pycache__/
 Validation_Data/
+Old_Data/
 checkpoints/
 logsold/
 lstmodel.*
