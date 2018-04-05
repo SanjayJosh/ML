@@ -10,8 +10,10 @@ def train():
     with graph.as_default():
         mac_remove_file()
         starttime=time.time()
-        datamodel = Dataset(True)
+        datamodel = Dataset(False)
+        print("Done with the file-creation")
         datamodel.make_path_lists()
+        print("Done with the path-creation")
         print("Time for path-creation is:",time.time() - starttime)
         nb_categories=datamodel.class_num
         print(nb_categories)

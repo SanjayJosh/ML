@@ -41,7 +41,7 @@ class Dataset():
         self.sampling_rate=rate
     def __init__(self,isinit=False,transfer="I"):
         if isinit == True:
-            self.trainfile,self.testfile=make_split(80,20,"44")
+            self.trainfile,self.testfile=make_split(80,20,"00")
             extract_images(self.trainfile,self.testfile)
 
 

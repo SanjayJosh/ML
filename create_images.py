@@ -41,7 +41,7 @@ def sample_x_images(dest_dir,sampling_rate):
     imgfiles=sorted(os.listdir(dest_dir))
     # print(imgfiles)
     length=len(imgfiles)
-
+    print(dest_dir,length)
     skip=length//sampling_rate
 
     my_indices = range(0,length,skip)[:sampling_rate]
@@ -97,4 +97,3 @@ if __name__ == "__main__":
         if not (os.path.isfile(testfile) and os.path.isfile(trainfile)) :
             make_split(6,3,"00")
         extract_images()
-
