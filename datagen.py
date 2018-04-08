@@ -71,30 +71,36 @@ class Dataset():
     @threadsafe_generator
     def train_data_generator(self,batchsize):
         imagelist=self.trainlist
+        j=0
         while True:
             X=[]
             y=[]
             for i in range(batchsize):
-                filename = random.choice(imagelist)
+                j=j+1 if j<(self.trainlength-1) else 0
+                #filename = random.choice(imagelist)
+                filename = imagelist[j]
                 # print("Rofl:",filename)
                 all_images = sample_x_images(filename[0],self.sampling_rate)
                 sequence=self.build_sequence(all_images)
                 X.append(sequence)
-                y.append(to_categorical(filename[1],self.class_num))
+                y.append(to_categorical(filename[1],self.class_num).squeeze())
             yield np.array(X),np.array(y)
     @threadsafe_generator
     def test_data_generator(self,batchsize):
         imagelist=self.testlist
+        j=0
         while True:
             X=[]
             y=[]
             for i in range(batchsize):
-                filename = random.choice(imagelist)
+                j=j+1 if j<(self.testlength-1) else 0
+                #filename = random.choice(imagelist)
+                filename = imagelist[j]
                 # print("Rofl:",filename)
                 all_images = sample_x_images(filename[0],self.sampling_rate)
                 sequence=self.build_sequence(all_images)
                 X.append(sequence)
-                y.append(to_categorical(filename[1],self.class_num))
+                y.append(to_categorical(filename[1],self.class_num).squeeze())
             yield np.array(X),np.array(y)
     def load_all_in_memory(self,listname):
         X=[]
