@@ -11,7 +11,7 @@ def train():
         is_multiprocessing=True
         mac_remove_file()
         starttime=time.time()
-        datamodel = Dataset(False)
+        datamodel = Dataset(True)
         print("Done with the file-creation")
         datamodel.make_path_lists()
         print("Done with the path-creation")
