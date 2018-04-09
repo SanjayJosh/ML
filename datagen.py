@@ -96,7 +96,7 @@ class Dataset():
             y=[]
             for i in range(batchsize):
                 j=j+1
-                if j == self.trainlength :
+                if j == self.testlength :
                     j=0
                 #filename = random.choice(imagelist)
                 filename = imagelist[j]
