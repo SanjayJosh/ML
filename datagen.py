@@ -144,16 +144,20 @@ class Dataset():
         # sys.exit(0)
         return sequence
 def global_save_array(each_file):
+    print("Woah here eh")
     data = Dataset(False)
+    print("Class made here eh!!")
     imagelist = sample_x_images(each_file[0],self.sampling_rate)
     X=data.build_sequence(imagelist)
     y=to_categorical(each_file[1],self.class_num).squeeze()
     np.save(os.path.join(each_file[0],'X'),X)
     np.save(os.path.join(each_file[0],'y'),y)
+    print("Done eh")
     return 1;
 
 def global_save_in_disk_parallel(listname):
-    pool = mp.Pool(processes=8)
+    print("Much waw")
+    pool = mp.Pool(processes=5)
     results = pool.map(global_save_array,listname)
 
 if __name__ == "__main__":
