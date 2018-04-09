@@ -10,6 +10,7 @@ import threading
 import random
 import tensorflow as tf
 import sys
+import os
 class threadsafe_iterator:
     def __init__(self, iterator):
         self.iterator = iterator
@@ -115,6 +116,16 @@ class Dataset():
             X.append(sequence)
             y.append(to_categorical(each_file[1],self.class_num).squeeze())
         return np.array(X), np.array(y)
+    def save_in_disk(self,listname):
+        for each_file in listname:
+            X=[]
+            y=[]
+            imagelist = sample_x_images(each_file[0],self.sampling_rate)
+            sequence=self.build_sequence(imagelist)
+            X.append(sequence)
+            y.append(to_categorical(each_file[1],self.class_num).squeeze())
+            np.save(os.path.join(each_file[0],'X.npz'),X)
+            np.save(os.path.join(each_file[0],'y.npz'),y)
 
     def build_sequence(self,imagelist):
         sequence=[self.feature_class.get_features(i) for i in imagelist]

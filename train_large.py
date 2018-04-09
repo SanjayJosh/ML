@@ -14,6 +14,8 @@ def train():
         datamodel = Dataset(False)
         print("Done with the file-creation")
         datamodel.make_path_lists()
+        datamodel.save_in_disk(datamodel.trainlist)
+        datamodel.save_in_disk(datamodel.testlist)
         print("Done with the path-creation")
         print("Time for path-creation is:",time.time() - starttime)
         nb_categories=datamodel.class_num
@@ -29,12 +31,12 @@ def train():
         steps_per_epoch_test = datamodel.testlength//batchsize
         dnn_model = lstm_model(nb_categories,sampling_rate,feature_dim)
         model= dnn_model.getmodel()
-        train_generator= datamodel.train_data_generator(batchsize)
+        #train_generator= datamodel.train_data_generator(batchsize)
         #test_generator= datamodel.test_data_generator(batchsize)
         starttime=time.time()
         X_test,y_test = datamodel.load_all_in_memory(datamodel.testlist)
         #model.fit_generator(generator=train_generator,steps_per_epoch=steps_per_epoch,epochs=epochs,verbose=1,validation_data=(X_test, y_test),workers=4,validation_steps=steps_per_epoch_test,callbacks=[tb,checkpoint,early_stopper])
-        model.fit_generator(generator=train_generator,steps_per_epoch=steps_per_epoch,epochs=epochs,verbose=1,validation_data=(X_test, y_test),workers=4,callbacks=[tb,checkpoint,early_stopper])
+        #model.fit_generator(generator=train_generator,steps_per_epoch=steps_per_epoch,epochs=epochs,verbose=1,validation_data=(X_test, y_test),workers=4,callbacks=[tb,checkpoint,early_stopper])
         #X,y = datamodel.load_all_in_memory(datamodel.trainlist)
         #print("Time for loading into memory is:",time.time() - starttime)
 
