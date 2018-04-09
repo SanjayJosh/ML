@@ -1,11 +1,15 @@
 from keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, CSVLogger
 from lstm_model import lstm_model
-from datagen import Dataset, global_save_in_disk_parallel
+from datagen import Dataset, global_save_array
 import time
 import os.path
 from utils import mac_remove_file
 import tensorflow as tf
 from feature_extractor import graph
+def global_save_in_disk_parallel(listname):
+    print("Much waw")
+    pool = mp.Pool(processes=5)
+    results = pool.map(global_save_array,listname)
 def train():
     with graph.as_default():
         is_multiprocessing=True
@@ -14,8 +18,8 @@ def train():
         datamodel = Dataset(False)
         print("Done with the file-creation")
         datamodel.make_path_lists()
-        global_save_in_disk_parallel(datamodel)
-        global_save_in_disk_parallel(datamodel)
+        global_save_in_disk_parallel(datamodel.trainlist)
+        global_save_in_disk_parallel(datamodel.testlist)
         print("Done with the path-creation")
         print("Time for path-creation is:",time.time() - starttime)
         nb_categories=datamodel.class_num
@@ -46,4 +50,5 @@ def train():
         # X,y = datamodel.data_generator(datamodel.trainlist,batchsize)
         # print(X.shape)
         # print(y.shape)
-train();
+if __name__ == "__main__":
+    train();

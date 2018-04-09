@@ -155,10 +155,7 @@ def global_save_array(each_file):
     print("Done eh")
     return 1;
 
-def global_save_in_disk_parallel(listname):
-    print("Much waw")
-    pool = mp.Pool(processes=5)
-    results = pool.map(global_save_array,listname)
+
 
 if __name__ == "__main__":
     mac_remove_file()
