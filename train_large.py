@@ -24,7 +24,7 @@ def myprint(file):
 def global_save_in_disk_parallel(listname):
     print("Much waw")
     pool = mp.Pool(processes=5)
-    results = pool.map(myprint,listname)
+    results = pool.map(global_save_array,listname)
     print(results)
 def train():
     with graph.as_default():
