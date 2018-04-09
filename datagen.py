@@ -76,7 +76,9 @@ class Dataset():
             X=[]
             y=[]
             for i in range(batchsize):
-                j=j+1 if j<(self.trainlength-1) else 0
+                j=j+1
+                if j == self.trainlength :
+                    j=0
                 #filename = random.choice(imagelist)
                 filename = imagelist[j]
                 # print("Rofl:",filename)
@@ -93,7 +95,9 @@ class Dataset():
             X=[]
             y=[]
             for i in range(batchsize):
-                j=j+1 if j<(self.testlength-1) else 0
+                j=j+1
+                if j == self.trainlength :
+                    j=0
                 #filename = random.choice(imagelist)
                 filename = imagelist[j]
                 # print("Rofl:",filename)
