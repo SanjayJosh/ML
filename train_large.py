@@ -1,42 +1,21 @@
 from keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, CSVLogger
 from lstm_model import lstm_model
 from datagen import Dataset
-from create_images import sample_x_images
 import time
-import os
+import os.path
 from utils import mac_remove_file
 import tensorflow as tf
-import multiprocessing as mp
-import numpy as np
 from feature_extractor import graph
-from keras.utils import to_categorical
-def global_save_array(each_file):
-    print("Woah here eh")
-    imagelist = sample_x_images(each_file[0],datamodel.sampling_rate)
-    X=datamodel.build_sequence(imagelist)
-    y=to_categorical(each_file[1],datamodel.class_num).squeeze()
-    np.save(os.path.join(each_file[0],'X'),X)
-    np.save(os.path.join(each_file[0],'y'),y)
-    print("Done eh")
-    return 1;
-def myprint(file):
-    return file[0]
-def global_save_in_disk_parallel(listname):
-    print("Much waw")
-    pool = mp.Pool(processes=5)
-    results = pool.map(global_save_array,listname)
-    #print(results)
 def train():
     with graph.as_default():
         is_multiprocessing=True
         mac_remove_file()
         starttime=time.time()
-        global datamodel
         datamodel = Dataset(False)
         print("Done with the file-creation")
         datamodel.make_path_lists()
-        global_save_in_disk_parallel(datamodel.trainlist)
-        global_save_in_disk_parallel(datamodel.testlist)
+        datamodel.save_in_disk(datamodel.trainlist)
+        datamodel.save_in_disk(datamodel.testlist)
         print("Done with the path-creation")
         print("Time for path-creation is:",time.time() - starttime)
         nb_categories=datamodel.class_num
@@ -45,7 +24,7 @@ def train():
         checkpoint= ModelCheckpoint(filepath=os.path.join('checkpoints','lstm-'+'.{epoch:03d}-{val_loss:.3f}.hdf5'),verbose=1,save_best_only=True)
         early_stopper = EarlyStopping(patience=15)
         feature_dim= 2048
-        sampling_rate=30
+        sampling_rate=40
         batchsize=40
         epochs= 1000
         steps_per_epoch= datamodel.trainlength//batchsize
@@ -55,7 +34,7 @@ def train():
         #train_generator= datamodel.train_data_generator(batchsize)
         #test_generator= datamodel.test_data_generator(batchsize)
         starttime=time.time()
-        #X_test,y_test = datamodel.load_all_in_memory(datamodel.testlist)
+        X_test,y_test = datamodel.load_all_in_memory(datamodel.testlist)
         #model.fit_generator(generator=train_generator,steps_per_epoch=steps_per_epoch,epochs=epochs,verbose=1,validation_data=(X_test, y_test),workers=4,validation_steps=steps_per_epoch_test,callbacks=[tb,checkpoint,early_stopper])
         #model.fit_generator(generator=train_generator,steps_per_epoch=steps_per_epoch,epochs=epochs,verbose=1,validation_data=(X_test, y_test),workers=4,callbacks=[tb,checkpoint,early_stopper])
         #X,y = datamodel.load_all_in_memory(datamodel.trainlist)
@@ -67,6 +46,4 @@ def train():
         # X,y = datamodel.data_generator(datamodel.trainlist,batchsize)
         # print(X.shape)
         # print(y.shape)
-if __name__ == "__main__":
-    mp.freeze_support()
-    train();
+train();
