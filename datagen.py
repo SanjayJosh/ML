@@ -11,6 +11,7 @@ import random
 import tensorflow as tf
 import sys
 import os
+import multiprocessing as mp
 class threadsafe_iterator:
     def __init__(self, iterator):
         self.iterator = iterator
@@ -116,14 +117,31 @@ class Dataset():
             X.append(sequence)
             y.append(to_categorical(each_file[1],self.class_num).squeeze())
         return np.array(X), np.array(y)
+    def save_array(each_file):
+        imagelist = sample_x_images(each_file[0],self.sampling_rate)
+        X=self.build_sequence(imagelist)
+        y=to_categorical(each_file[1],self.class_num).squeeze()
+        np.save(os.path.join(each_file[0],'X'),X)
+        np.save(os.path.join(each_file[0],'y'),y)
+        return 1;
+
+    def save_in_disk_parallel(self,listname):
+        pool = mp.Pool(processes=8)
+        results = pool.map(save_array,listname)
+        # imagelist = sample_x_images(each_file[0],self.sampling_rate)
+        # sequence=self.build_sequence(imagelist)
+        # X=sequence
+        # y=to_categorical(each_file[1],self.class_num).squeeze()
+        # np.save(os.path.join(each_file[0],'X'),X)
+        # np.save(os.path.join(each_file[0],'y'),y)
     def save_in_disk(self,listname):
-        for each_file in listname:
-            imagelist = sample_x_images(each_file[0],self.sampling_rate)
-            sequence=self.build_sequence(imagelist)
-            X=sequence
-            y=to_categorical(each_file[1],self.class_num).squeeze()
-            np.save(os.path.join(each_file[0],'X'),X)
-            np.save(os.path.join(each_file[0],'y'),y)
+          for each_file in listname:
+              imagelist = sample_x_images(each_file[0],self.sampling_rate)
+              sequence=self.build_sequence(imagelist)
+              X=sequence
+              y=to_categorical(each_file[1],self.class_num).squeeze()
+              np.save(os.path.join(each_file[0],'X.npy'),X)
+              np.save(os.path.join(each_file[0],'y.npy'),y)
 
     def build_sequence(self,imagelist):
         sequence=[self.feature_class.get_features(i) for i in imagelist]
