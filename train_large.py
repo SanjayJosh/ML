@@ -14,8 +14,8 @@ def train():
         datamodel = Dataset(False)
         print("Done with the file-creation")
         datamodel.make_path_lists()
-        datamodel.save_in_disk(datamodel.trainlist)
-        datamodel.save_in_disk(datamodel.testlist)
+        datamodel.save_in_disk_parallel(datamodel.trainlist)
+        datamodel.save_in_disk_parallel(datamodel.testlist)
         print("Done with the path-creation")
         print("Time for path-creation is:",time.time() - starttime)
         nb_categories=datamodel.class_num
