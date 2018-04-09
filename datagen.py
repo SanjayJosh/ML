@@ -143,7 +143,7 @@ class Dataset():
         # print(sequence.shape)
         # sys.exit(0)
         return sequence
-def global_save_array(self,each_file):
+def global_save_array(each_file):
     data = Dataset(False)
     imagelist = sample_x_images(each_file[0],self.sampling_rate)
     X=data.build_sequence(imagelist)
@@ -152,7 +152,7 @@ def global_save_array(self,each_file):
     np.save(os.path.join(each_file[0],'y'),y)
     return 1;
 
-def global_save_in_disk_parallel(self,listname):
+def global_save_in_disk_parallel(listname):
     pool = mp.Pool(processes=8)
     results = pool.map(global_save_array,listname)
 
