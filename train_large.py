@@ -36,7 +36,8 @@ def train():
         starttime=time.time()
         global datamodel
         global feature_model
-        global input_shape=(299,299,3)
+        global input_shape
+        input_shape=(299,299,3)
         datamodel = Dataset(False)
         inception_model = InceptionV3(weights='imagenet',include_top=True)
         feature_model = Model(
