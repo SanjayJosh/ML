@@ -122,8 +122,8 @@ class Dataset():
             sequence=self.build_sequence(imagelist)
             X=sequence
             y=to_categorical(each_file[1],self.class_num).squeeze()
-            np.save(os.path.join(each_file[0],'X.npz'),X)
-            np.save(os.path.join(each_file[0],'y.npz'),y)
+            np.save(os.path.join(each_file[0],'X.npy'),X)
+            np.save(os.path.join(each_file[0],'y.npy'),y)
 
     def build_sequence(self,imagelist):
         sequence=[self.feature_class.get_features(i) for i in imagelist]
