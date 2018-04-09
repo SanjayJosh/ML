@@ -24,7 +24,7 @@ def train():
         checkpoint= ModelCheckpoint(filepath=os.path.join('checkpoints','lstm-'+'.{epoch:03d}-{val_loss:.3f}.hdf5'),verbose=1,save_best_only=True)
         early_stopper = EarlyStopping(patience=15)
         feature_dim= 2048
-        sampling_rate=40
+        sampling_rate=30
         batchsize=40
         epochs= 1000
         steps_per_epoch= datamodel.trainlength//batchsize
