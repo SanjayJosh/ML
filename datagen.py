@@ -140,7 +140,7 @@ class Dataset():
 
     def build_sequence(self,imagelist):
         sequence=[self.feature_class.get_features(i) for i in imagelist]
-        # print(sequence.shape)
+        #sequence=[[0]*2048]*40
         # sys.exit(0)
         return sequence
 def global_save_array(each_file):

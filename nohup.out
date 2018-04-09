@@ -1,48 +1,4 @@
-2018-04-08 20:14:48.411066: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
-2018-04-08 20:14:48.411181: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
-2018-04-08 20:14:48.411191: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
-2018-04-08 20:14:48.411197: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
-2018-04-08 20:14:48.411203: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
-DS Store deleted.
-Done with the file-creation
-Done with the path-creation
-Time for path-creation is: 15.080173015594482
-101
-_________________________________________________________________
-Layer (type)                 Output Shape              Param #   
-=================================================================
-lstm_1 (LSTM)                (None, 2048)              33562624  
-_________________________________________________________________
-dense_1 (Dense)              (None, 512)               1049088   
-_________________________________________________________________
-dropout_1 (Dropout)          (None, 512)               0         
-_________________________________________________________________
-dense_2 (Dense)              (None, 101)               51813     
-=================================================================
-Total params: 34,663,525
-Trainable params: 34,663,525
-Non-trainable params: 0
-_________________________________________________________________
-None
-Epoch 1/1000
-  1/266 [..............................] - ETA: 95619s - loss: 4.9410 - acc: 0.0000e+00  2/266 [..............................] - ETA: 94852s - loss: 4.7582 - acc: 0.0000e+00  3/266 [..............................] - ETA: 94222s - loss: 4.7061 - acc: 0.0000e+00  4/266 [..............................] - ETA: 93814s - loss: 4.6521 - acc: 0.0000e+00  5/266 [..............................] - ETA: 93297s - loss: 4.6382 - acc: 0.0000e+00  6/266 [..............................] - ETA: 92775s - loss: 4.6660 - acc: 0.0000e+00  7/266 [..............................] - ETA: 92381s - loss: 4.6742 - acc: 0.0000e+00  8/266 [..............................] - ETA: 91994s - loss: 4.6610 - acc: 0.0000e+00  9/266 [>.............................] - ETA: 91624s - loss: 4.6462 - acc: 0.0000e+00 10/266 [>.............................] - ETA: 91257s - loss: 4.6239 - acc: 0.0025     11/266 [>.............................] - ETA: 90860s - loss: 4.6345 - acc: 0.0023 12/266 [>.............................] - ETA: 90484s - loss: 4.6669 - acc: 0.0021 13/266 [>.............................] - ETA: 90105s - loss: 4.6835 - acc: 0.0019 14/266 [>.............................] - ETA: 89736s - loss: 4.6818 - acc: 0.0018 15/266 [>.............................] - ETA: 89352s - loss: 4.6645 - acc: 0.0017 16/266 [>.............................] - ETA: 88962s - loss: 4.6618 - acc: 0.0031 17/266 [>.............................] - ETA: 88621s - loss: 4.6604 - acc: 0.0029 18/266 [=>............................] - ETA: 88257s - loss: 4.6627 - acc: 0.0028 19/266 [=>............................] - ETA: 87881s - loss: 4.6567 - acc: 0.0026 20/266 [=>............................] - ETA: 87505s - loss: 4.6590 - acc: 0.0025 21/266 [=>............................] - ETA: 87138s - loss: 4.6540 - acc: 0.0036Using TensorFlow backend.
-Traceback (most recent call last):
-  File "train_large.py", line 46, in <module>
-    train();
-  File "train_large.py", line 35, in train
-    model.fit_generator(generator=train_generator,steps_per_epoch=steps_per_epoch,epochs=epochs,verbose=1,validation_data=test_generator,workers=4,validation_steps=steps_per_epoch_test,callbacks=[tb,checkpoint,early_stopper])
-  File "/home/s0j00os/anaconda3/lib/python3.6/site-packages/keras/legacy/interfaces.py", line 88, in wrapper
-    return func(*args, **kwargs)
-  File "/home/s0j00os/anaconda3/lib/python3.6/site-packages/keras/models.py", line 1124, in fit_generator
-    initial_epoch=initial_epoch)
-  File "/home/s0j00os/anaconda3/lib/python3.6/site-packages/keras/legacy/interfaces.py", line 88, in wrapper
-    return func(*args, **kwargs)
-  File "/home/s0j00os/anaconda3/lib/python3.6/site-packages/keras/engine/training.py", line 1902, in fit_generator
-    class_weight=class_weight)
-  File "/home/s0j00os/anaconda3/lib/python3.6/site-packages/keras/engine/training.py", line 1636, in train_on_batch
-    check_batch_axis=True)
-  File "/home/s0j00os/anaconda3/lib/python3.6/site-packages/keras/engine/training.py", line 1311, in _standardize_user_data
-    exception_prefix='input')
-  File "/home/s0j00os/anaconda3/lib/python3.6/site-packages/keras/engine/training.py", line 127, in _standardize_input_data
-    str(array.shape))
-ValueError: Error when checking input: expected lstm_1_input to have 3 dimensions, but got array with shape (40, 1)
+  File "train_large.py", line 36
+    global feature_class
+                       ^
+TabError: inconsistent use of tabs and spaces in indentation

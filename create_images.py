@@ -37,7 +37,7 @@ def destination_directory(row,split):
     return videoname,dest_dir
 
 def sample_x_images(dest_dir,sampling_rate):
-    # print("Lmao::",dest_dir)
+    #return ['Clean_Data/Train/BenchPress/v_BenchPress_g01_c01/image-0001.jpg','Clean_Data/Train/BenchPress/v_BenchPress_g01_c01/image-0002.jpg']
     imgfiles=sorted(os.listdir(dest_dir))
     # print(imgfiles)
     length=len(imgfiles)

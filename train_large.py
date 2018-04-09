@@ -9,11 +9,12 @@ import tensorflow as tf
 import multiprocessing as mp
 import numpy as np
 from feature_extractor import graph
+from feature_extractor import Inception_Features
 from keras.utils import to_categorical
 def global_save_array(each_file):
     print("Woah here eh")
     imagelist = sample_x_images(each_file[0],datamodel.sampling_rate)
-    X=datamodel.build_sequence(imagelist)
+    X=[feature_class.get_features(i) for i in imagelist]
     y=to_categorical(each_file[1],datamodel.class_num).squeeze()
     np.save(os.path.join(each_file[0],'X'),X)
     np.save(os.path.join(each_file[0],'y'),y)
@@ -25,14 +26,16 @@ def global_save_in_disk_parallel(listname):
     print("Much waw")
     pool = mp.Pool(processes=5)
     results = pool.map(global_save_array,listname)
-    #print(results)
+    print(results)
 def train():
     with graph.as_default():
         is_multiprocessing=True
         mac_remove_file()
         starttime=time.time()
         global datamodel
+	global feature_class
         datamodel = Dataset(False)
+	feature_class = Inception_Features()
         print("Done with the file-creation")
         datamodel.make_path_lists()
         global_save_in_disk_parallel(datamodel.trainlist)
