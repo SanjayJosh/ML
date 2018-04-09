@@ -1,20 +1,36 @@
 from keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, CSVLogger
 from lstm_model import lstm_model
-from datagen import Dataset, global_save_array
+from datagen import Dataset
+from create_images import sample_x_images
 import time
-import os.path
+import os
 from utils import mac_remove_file
 import tensorflow as tf
+import multiprocessing as mp
+import numpy as np
 from feature_extractor import graph
+from keras.utils import to_categorical
+def global_save_array(each_file):
+    print("Woah here eh")
+    imagelist = sample_x_images(each_file[0],self.sampling_rate)
+    X=datamodel.build_sequence(imagelist)
+    y=to_categorical(each_file[1],self.class_num).squeeze()
+    np.save(os.path.join(each_file[0],'X'),X)
+    np.save(os.path.join(each_file[0],'y'),y)
+    print("Done eh")
+    return 1;
+def myprint(file):
+    return file[0]
 def global_save_in_disk_parallel(listname):
     print("Much waw")
     pool = mp.Pool(processes=5)
-    results = pool.map(global_save_array,listname)
+    results = pool.map(myprint,listname)
 def train():
     with graph.as_default():
         is_multiprocessing=True
         mac_remove_file()
         starttime=time.time()
+        global datamodel
         datamodel = Dataset(False)
         print("Done with the file-creation")
         datamodel.make_path_lists()
@@ -51,4 +67,5 @@ def train():
         # print(X.shape)
         # print(y.shape)
 if __name__ == "__main__":
+    mp.freeze_support()
     train();
