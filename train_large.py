@@ -1,6 +1,6 @@
 from keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, CSVLogger
 from lstm_model import lstm_model
-from datagen import Dataset
+from datagen import Dataset, global_save_in_disk_parallel
 import time
 import os.path
 from utils import mac_remove_file
@@ -24,7 +24,7 @@ def train():
         checkpoint= ModelCheckpoint(filepath=os.path.join('checkpoints','lstm-'+'.{epoch:03d}-{val_loss:.3f}.hdf5'),verbose=1,save_best_only=True)
         early_stopper = EarlyStopping(patience=15)
         feature_dim= 2048
-        sampling_rate=40
+        sampling_rate=30
         batchsize=40
         epochs= 1000
         steps_per_epoch= datamodel.trainlength//batchsize
@@ -34,7 +34,7 @@ def train():
         #train_generator= datamodel.train_data_generator(batchsize)
         #test_generator= datamodel.test_data_generator(batchsize)
         starttime=time.time()
-        X_test,y_test = datamodel.load_all_in_memory(datamodel.testlist)
+        #X_test,y_test = datamodel.load_all_in_memory(datamodel.testlist)
         #model.fit_generator(generator=train_generator,steps_per_epoch=steps_per_epoch,epochs=epochs,verbose=1,validation_data=(X_test, y_test),workers=4,validation_steps=steps_per_epoch_test,callbacks=[tb,checkpoint,early_stopper])
         #model.fit_generator(generator=train_generator,steps_per_epoch=steps_per_epoch,epochs=epochs,verbose=1,validation_data=(X_test, y_test),workers=4,callbacks=[tb,checkpoint,early_stopper])
         #X,y = datamodel.load_all_in_memory(datamodel.trainlist)

@@ -70,7 +70,7 @@ class Dataset():
                 videoname,dest_dir=destination_directory(row,test_folder)
                 self.testlist.append([dest_dir,int(row[1])])
         self.testlength=len(self.testlist)
-    @threadsafe_generator
+    #@threadsafe_generator
     def train_data_generator(self,batchsize):
         imagelist=self.trainlist
         j=0
@@ -89,7 +89,7 @@ class Dataset():
                 X.append(sequence)
                 y.append(to_categorical(filename[1],self.class_num).squeeze())
             yield np.array(X),np.array(y)
-    @threadsafe_generator
+    #@threadsafe_generator
     def test_data_generator(self,batchsize):
         imagelist=self.testlist
         j=0
@@ -117,7 +117,7 @@ class Dataset():
             X.append(sequence)
             y.append(to_categorical(each_file[1],self.class_num).squeeze())
         return np.array(X), np.array(y)
-    def save_array(each_file):
+    def save_array(self,each_file):
         imagelist = sample_x_images(each_file[0],self.sampling_rate)
         X=self.build_sequence(imagelist)
         y=to_categorical(each_file[1],self.class_num).squeeze()
@@ -128,12 +128,7 @@ class Dataset():
     def save_in_disk_parallel(self,listname):
         pool = mp.Pool(processes=8)
         results = pool.map(save_array,listname)
-        # imagelist = sample_x_images(each_file[0],self.sampling_rate)
-        # sequence=self.build_sequence(imagelist)
-        # X=sequence
-        # y=to_categorical(each_file[1],self.class_num).squeeze()
-        # np.save(os.path.join(each_file[0],'X'),X)
-        # np.save(os.path.join(each_file[0],'y'),y)
+
     def save_in_disk(self,listname):
           for each_file in listname:
               imagelist = sample_x_images(each_file[0],self.sampling_rate)
@@ -148,7 +143,18 @@ class Dataset():
         # print(sequence.shape)
         # sys.exit(0)
         return sequence
+def global_save_array(self,each_file):
+    data = Dataset(False)
+    imagelist = sample_x_images(each_file[0],self.sampling_rate)
+    X=data.build_sequence(imagelist)
+    y=to_categorical(each_file[1],self.class_num).squeeze()
+    np.save(os.path.join(each_file[0],'X'),X)
+    np.save(os.path.join(each_file[0],'y'),y)
+    return 1;
 
+def global_save_in_disk_parallel(self,listname):
+    pool = mp.Pool(processes=8)
+    results = pool.map(global_save_array,listname)
 
 if __name__ == "__main__":
     mac_remove_file()
