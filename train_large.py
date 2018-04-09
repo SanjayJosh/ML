@@ -33,9 +33,9 @@ def train():
         mac_remove_file()
         starttime=time.time()
         global datamodel
-	global feature_class
+        global feature_class
         datamodel = Dataset(False)
-	feature_class = Inception_Features()
+        feature_class = Inception_Features()
         print("Done with the file-creation")
         datamodel.make_path_lists()
         global_save_in_disk_parallel(datamodel.trainlist)
