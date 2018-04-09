@@ -10,6 +10,7 @@ import multiprocessing as mp
 import numpy as np
 from feature_extractor import graph
 from feature_extractor import Inception_Features
+from keras.applications.inception_v3 import InceptionV3
 from image_processor import inception_image_processor
 from keras.models import Model, load_model
 from keras.utils import to_categorical
