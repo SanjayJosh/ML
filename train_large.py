@@ -12,9 +12,9 @@ from feature_extractor import graph
 from keras.utils import to_categorical
 def global_save_array(each_file):
     print("Woah here eh")
-    imagelist = sample_x_images(each_file[0],self.sampling_rate)
+    imagelist = sample_x_images(each_file[0],datamodel.sampling_rate)
     X=datamodel.build_sequence(imagelist)
-    y=to_categorical(each_file[1],self.class_num).squeeze()
+    y=to_categorical(each_file[1],datamodel.class_num).squeeze()
     np.save(os.path.join(each_file[0],'X'),X)
     np.save(os.path.join(each_file[0],'y'),y)
     print("Done eh")
