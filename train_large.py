@@ -47,12 +47,12 @@ def train():
         #global feature_model
         #global input_shape
         datamodel = Dataset(False)
-        input_shape=(299,299,3)
-        inception_model = InceptionV3(weights='imagenet',include_top=True)
-        feature_model = Model(
-            inputs=inception_model.input,
-            outputs=inception_model.layers[-2].output
-        )
+        # input_shape=(299,299,3)
+        # inception_model = InceptionV3(weights='imagenet',include_top=True)
+        # feature_model = Model(
+        #     inputs=inception_model.input,
+        #     outputs=inception_model.layers[-2].output
+        # )
         print("Done with the file-creation")
         datamodel.make_path_lists()
         global_save_in_disk_parallel(datamodel.trainlist)
