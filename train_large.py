@@ -17,7 +17,7 @@ from keras.utils import to_categorical
 def global_save_array(each_file):
     print("Woah here eh")
     imagelist = sample_x_images(each_file[0],datamodel.sampling_rate)
-    X=[inception_image_processor(i,input_shape) for i in imagelist]
+    X=[feature_model.predict(inception_image_processor(i,input_shape)) for i in imagelist]
     y=to_categorical(each_file[1],datamodel.class_num).squeeze()
     np.save(os.path.join(each_file[0],'X'),X)
     np.save(os.path.join(each_file[0],'y'),y)
@@ -38,13 +38,14 @@ def train():
         global datamodel
         global feature_model
         global input_shape
-        input_shape=(299,299,3)
         datamodel = Dataset(False)
+        input_shape=(299,299,3)
         inception_model = InceptionV3(weights='imagenet',include_top=True)
         feature_model = Model(
             inputs=inception_model.input,
             outputs=inception_model.layers[-2].output
         )
+        feature_model._make_predict_function()
         print("Done with the file-creation")
         datamodel.make_path_lists()
         global_save_in_disk_parallel(datamodel.trainlist)
