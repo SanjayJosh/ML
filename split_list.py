@@ -8,7 +8,7 @@ from utils import mac_remove_file
 dir_name="Data"
 train_folder="Train"
 test_folder="Test"
-clean_data="Mlean_Data"
+clean_data="Clean_Data"
 # ignore_file=".DS_Store"
 #
 # def remove_ignored_file():
