@@ -8,7 +8,7 @@ from utils import mac_remove_file
 dir_name="Data"
 train_folder="Train"
 test_folder="Test"
-clean_data="Clean_Data"
+clean_data="Mlean_Data"
 # ignore_file=".DS_Store"
 #
 # def remove_ignored_file():
@@ -89,4 +89,3 @@ if __name__ == "__main__":
         mac_remove_file()
         make_split(trainlength,testlength,version)
         #print(dir_name)
-

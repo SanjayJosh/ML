@@ -17,7 +17,7 @@ from keras.utils import to_categorical
 def global_save_array(each_file):
     print("Woah here eh")
     imagelist = sample_x_images(each_file[0],datamodel.sampling_rate)
-    X=[feature_model.predict(inception_image_processor(i,input_shape)) for i in imagelist]
+    X=[inception_image_processor(i,input_shape) for i in imagelist]
     y=to_categorical(each_file[1],datamodel.class_num).squeeze()
     np.save(os.path.join(each_file[0],'X'),X)
     np.save(os.path.join(each_file[0],'y'),y)
