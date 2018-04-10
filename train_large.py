@@ -81,5 +81,4 @@ def train():
         # print(X.shape)
         # print(y.shape)
 if __name__ == "__main__":
-    mp.freeze_support()
     train();
