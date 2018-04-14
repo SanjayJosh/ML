@@ -116,10 +116,12 @@ class Dataset():
         X=[]
         y=[]
         for each_file in listname:
-            imagelist = sample_x_images(each_file[0],self.sampling_rate)
-            sequence=self.build_sequence(imagelist)
+            # imagelist = sample_x_images(each_file[0],self.sampling_rate)
+            # sequence=self.build_sequence(imagelist)
+            sequence=np.load(os.path.join(each_file[0],'X.npy'))
+            val = np.load(os.path.join(each_file[0],'y.npy'))
             X.append(sequence)
-            y.append(to_categorical(each_file[1],self.class_num).squeeze())
+            y.append(val)
         return np.array(X), np.array(y)
     def save_array(each_file):
         imagelist = sample_x_images(each_file[0],self.sampling_rate)
