@@ -84,10 +84,12 @@ class Dataset():
                 #filename = random.choice(imagelist)
                 filename = imagelist[j]
                 # print("Rofl:",filename)
-                all_images = sample_x_images(filename[0],self.sampling_rate)
-                sequence=self.build_sequence(all_images)
+                #all_images = sample_x_images(filename[0],self.sampling_rate)
+                #sequence=self.build_sequence(all_images)
+                sequence=np.load(os.path.join(filename[0],'X.npy'))
+                val = np.load(os.path.join(filename[0],'y.npy'))
                 X.append(sequence)
-                y.append(to_categorical(filename[1],self.class_num).squeeze())
+                y.append(val)
             yield np.array(X),np.array(y)
     @threadsafe_generator
     def test_data_generator(self,batchsize):
@@ -103,10 +105,12 @@ class Dataset():
                 #filename = random.choice(imagelist)
                 filename = imagelist[j]
                 # print("Rofl:",filename)
-                all_images = sample_x_images(filename[0],self.sampling_rate)
-                sequence=self.build_sequence(all_images)
+                # all_images = sample_x_images(filename[0],self.sampling_rate)
+                # sequence=self.build_sequence(all_images)
+                sequence=np.load(os.path.join(filename[0],'X.npy'))
+                val = np.load(os.path.join(filename[0],'y.npy'))
                 X.append(sequence)
-                y.append(to_categorical(filename[1],self.class_num).squeeze())
+                y.append(val)
             yield np.array(X),np.array(y)
     def load_all_in_memory(self,listname):
         X=[]
