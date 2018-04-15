@@ -32,7 +32,7 @@ def threadsafe_generator(func):
 class Dataset():
     all_classes=None
     class_dict=None
-    sampling_rate=40
+    sampling_rate=30
     trainlength= None
     testlength= None
     trainfile="trainlist-00.csv"
