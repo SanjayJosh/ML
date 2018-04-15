@@ -35,7 +35,7 @@ def train():
         test_generator= datamodel.test_data_generator(batchsize)
         starttime=time.time()
         #X_test,y_test = datamodel.load_all_in_memory(datamodel.testlist)
-        model.fit_generator(generator=train_generator,steps_per_epoch=steps_per_epoch,epochs=epochs,verbose=1,validation_data=(X_test, y_test),use_multiprocessing=True,workers=4,validation_steps=steps_per_epoch_test,callbacks=[tb,checkpoint,early_stopper])
+        model.fit_generator(generator=train_generator,steps_per_epoch=steps_per_epoch,epochs=epochs,verbose=1,validation_data=test_generator,use_multiprocessing=True,workers=4,validation_steps=steps_per_epoch_test,callbacks=[tb,checkpoint,early_stopper])
         #model.fit_generator(generator=train_generator,steps_per_epoch=steps_per_epoch,epochs=epochs,verbose=1,validation_data=(X_test, y_test),workers=4,callbacks=[tb,checkpoint,early_stopper])
         #X,y = datamodel.load_all_in_memory(datamodel.trainlist)
         #print("Time for loading into memory is:",time.time() - starttime)
