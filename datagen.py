@@ -78,7 +78,6 @@ class Dataset():
             X=[]
             y=[]
             for i in range(batchsize):
-                j=j+1
                 if j == self.trainlength :
                     j=0
                 #filename = random.choice(imagelist)
@@ -90,6 +89,7 @@ class Dataset():
                 val = np.load(os.path.join(filename[0],'y.npy'))
                 X.append(sequence)
                 y.append(val)
+                j=j+1
             yield np.array(X),np.array(y)
     @threadsafe_generator
     def test_data_generator(self,batchsize):
@@ -99,7 +99,6 @@ class Dataset():
             X=[]
             y=[]
             for i in range(batchsize):
-                j=j+1
                 if j == self.testlength :
                     j=0
                 #filename = random.choice(imagelist)
@@ -111,6 +110,7 @@ class Dataset():
                 val = np.load(os.path.join(filename[0],'y.npy'))
                 X.append(sequence)
                 y.append(val)
+                j=j+1
             yield np.array(X),np.array(y)
     def load_all_in_memory(self,listname):
         X=[]
