@@ -25,7 +25,7 @@ def train():
         early_stopper = EarlyStopping(patience=20)
         feature_dim= 2048
         sampling_rate=30
-        batchsize=40
+        batchsize=100
         epochs= 10000
         steps_per_epoch= datamodel.trainlength//batchsize
         steps_per_epoch_test = datamodel.testlength//batchsize
@@ -41,7 +41,7 @@ def train():
         print("Time for loading into memory is:",time.time() - starttime)
 
         starttime=time.time()
-        model.fit(X,y,validation_data=(X_test, y_test),batch_size=batchsize,verbose=1,epochs=epochs,callbacks=[tb,checkpoint,early_stopper])
+        model.fit(X,y,validation_data=(X_test, y_test),batch_size=batchsize,verbose=1,epochs=epochs,callbacks=[tb,checkpoint,early_stopper],shuffle=True)
         print("Training-Validation time is",time.time() - starttime)
         # X,y = datamodel.data_generator(datamodel.trainlist,batchsize)
         # print(X.shape)
