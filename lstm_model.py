@@ -2,8 +2,6 @@ from keras.layers import Dense,Dropout
 from keras.layers.recurrent import LSTM
 from keras.models import Sequential, load_model ,save_model
 from keras.optimizers import Adam
-from keras.optimizers import SGD
-from keras.optimizers import Nadam
 from keras import regularizers
 
 
@@ -13,12 +11,11 @@ class lstm_model():
         self.nb_categories=nb_categories
         self.sequence_shape=(sampling_rate,feature_dim)
         self.model= Sequential()
-        optimizer= SGD(lr=1e-6,momentum=1e-4,nesterov=True)
-        #optimizer = Nadam(lr=1e-6, schedule_decay=1e-5)
-        self.model.add(LSTM(2048,return_sequences=False,input_shape=self.sequence_shape,dropout=0.5,kernel_regularizer=regularizers.l1(0.0001),activity_regularizer=regularizers.l1(0.0001)))
+        optimizer = Adam(lr=1e-6, decay=1e-7)
+        self.model.add(LSTM(2048,return_sequences=False,input_shape=self.sequence_shape,dropout=0.5,kernel_regularizer=regularizers.l1(0.001),activity_regularizer=regularizers.l1(0.001)))
         self.model.add(Dense(512, activation='relu'))
-        self.model.add(Dropout(0.4))
-        self.model.add(Dense(nb_categories, activation='softmax',kernel_regularizer=regularizers.l1(0.0001),activity_regularizer=regularizers.l1(0.0001)))
+        self.model.add(Dropout(0.6))
+        self.model.add(Dense(nb_categories, activation='softmax',kernel_regularizer=regularizers.l1(0.001),activity_regularizer=regularizers.l1(0.001)))
         self.model.compile(loss='categorical_crossentropy', optimizer=optimizer,metrics=['accuracy'])
         print(self.model.summary())
     def getmodel(self):
