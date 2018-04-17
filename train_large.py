@@ -26,7 +26,7 @@ def train():
         feature_dim= 2048
         sampling_rate=30
         batchsize=40
-        epochs= 1000
+        epochs= 10000
         steps_per_epoch= datamodel.trainlength//batchsize
         steps_per_epoch_test = datamodel.testlength//batchsize
         dnn_model = lstm_model(nb_categories,sampling_rate,feature_dim)
