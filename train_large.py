@@ -21,7 +21,7 @@ def train():
         nb_categories=datamodel.class_num
         print(nb_categories)
         tb = TensorBoard(log_dir=os.path.join('logs'))
-        checkpoint= ModelCheckpoint(filepath=os.path.join('checkpoints','lstm-'+'.{epoch:03d}-{val_loss:.3f}.hdf5'),verbose=1,save_best_only=True)
+        checkpoint= ModelCheckpoint(filepath=os.path.join('checkpoints','lstm-best.hdf5'),verbose=1,save_best_only=True)
         early_stopper = EarlyStopping(patience=15)
         feature_dim= 2048
         sampling_rate=30
