@@ -90,6 +90,8 @@ class Dataset():
                 X.append(sequence)
                 y.append(val)
                 j=j+1
+            print("X :",X.shape)
+            print("y :",y.shape)
             yield np.array(X),np.array(y)
     @threadsafe_generator
     def test_data_generator(self,batchsize):
@@ -111,6 +113,8 @@ class Dataset():
                 X.append(sequence)
                 y.append(val)
                 j=j+1
+            print("X :",X.shape)
+            print("y :",y.shape)    
             yield np.array(X),np.array(y)
     def load_all_in_memory(self,listname):
         X=[]
