@@ -13,7 +13,8 @@ class lstm_model():
         self.nb_categories=nb_categories
         self.sequence_shape=(sampling_rate,feature_dim)
         self.model= Sequential()
-        optimizer = Nadam(lr=1e-6, schedule_decay=1e-5)
+        optimizer= SGD(lr=1e-6,momentum=1e-4,nesterov=True)
+        #optimizer = Nadam(lr=1e-6, schedule_decay=1e-5)
         self.model.add(LSTM(2048,return_sequences=False,input_shape=self.sequence_shape,dropout=0.5,kernel_regularizer=regularizers.l1(0.0001),activity_regularizer=regularizers.l1(0.0001)))
         self.model.add(Dense(512, activation='relu'))
         self.model.add(Dropout(0.4))
