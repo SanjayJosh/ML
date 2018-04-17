@@ -124,10 +124,10 @@ class Dataset():
             # sequence=self.build_sequence(imagelist)
             sequence=np.load(os.path.join(each_file[0],'X.npy'))
             val = np.load(os.path.join(each_file[0],'y.npy'))
-            print(each_file[0],sequence.shape)
-            print(each_file[0],val.shape)
             X.append(sequence)
             y.append(val)
+        print(np.array(X).shape)
+        print(np.array(y).shape)
         return np.array(X), np.array(y)
     def save_array(each_file):
         imagelist = sample_x_images(each_file[0],self.sampling_rate)
