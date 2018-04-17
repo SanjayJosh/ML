@@ -22,7 +22,7 @@ def train():
         print(nb_categories)
         tb = TensorBoard(log_dir=os.path.join('logs'))
         checkpoint= ModelCheckpoint(filepath=os.path.join('checkpoints','lstm-best.hdf5'),verbose=1,save_best_only=True)
-        early_stopper = EarlyStopping(patience=15)
+        early_stopper = EarlyStopping(patience=20)
         feature_dim= 2048
         sampling_rate=30
         batchsize=40
