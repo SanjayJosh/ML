@@ -25,7 +25,7 @@ def train():
         early_stopper = EarlyStopping(patience=20)
         feature_dim= 2048
         sampling_rate=30
-        batchsize=100
+        batchsize=40
         epochs= 10000
         steps_per_epoch= datamodel.trainlength//batchsize
         steps_per_epoch_test = datamodel.testlength//batchsize
