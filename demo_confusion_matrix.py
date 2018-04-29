@@ -67,8 +67,8 @@ model= dnn_model.getmodel()
 model.load_weights('checkpoints/lstm-best.hdf5')
 X_test,y_test = datamodel.load_all_in_memory(datamodel.testlist)
 # y_true_list=pd.Series(get_classes(y_test))
-y_true_list=pd.Series([datamodel.class_dict[i] for i in get_classes(y_test)])
-y_pred=pd.Series([datamodel.class_dict[i] for i in model.predict_classes(X_test)])
+y_true_list=[datamodel.class_dict[i] for i in get_classes(y_test)]
+y_pred=[datamodel.class_dict[i] for i in model.predict_classes(X_test)]
 cnf_matrix = confusion_matrix(y_test, y_pred)
 plt.figure()
 plot_confusion_matrix(cnf_matrix,datamodel.all_classes)
