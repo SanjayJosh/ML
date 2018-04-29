@@ -69,10 +69,10 @@ X_test,y_test = datamodel.load_all_in_memory(datamodel.testlist)
 # y_true_list=pd.Series(get_classes(y_test))
 # y_true_list=[datamodel.class_dict[i] for i in get_classes(y_test)]
 # y_pred=[datamodel.class_dict[i] for i in model.predict_classes(X_test)]
-y_true_list=[datamodel.class_dict[i] for i in get_classes(y_test)]
-y_pred=[datamodel.class_dict[i] for i in model.predict_classes(X_test)]
-# print(y_true_list)
-# print(y_pred)
+y_true_list=[int(i) for i in get_classes(y_test)]
+y_pred=[int(i) for i in model.predict_classes(X_test)]
+print(y_true_list)
+print(y_pred)
 print("Y true:",len(y_true_list))
 print("Y pred:",len(y_pred))
 cnf_matrix = confusion_matrix(y_test, y_pred)
